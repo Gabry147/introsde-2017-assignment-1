@@ -5,7 +5,7 @@ This is the first assignment for [IntroSDE course] at [Unitn].
 
 
 ## The project
-The goal of the assignment is to generateing Java Objects from a XML schema, reading from/writing to them XML and JSON document and querying an XML document. The marshalling and unmarshilling is provided by JAXB for XML and [Jackson] for JSON. The XML document are queried using XPath 1.0.
+The goal of the assignment is to generating Java Objects from a XML schema, reading/writing them from/to XML and JSON document and querying an XML document. The marshalling and unmarshilling is provided by JAXB for XML and [Jackson] for JSON. The XML document are queried using XPath 1.0.
 
 ## The code
 There are three packages, one for XML utilities, one for XPath and one for un/marshalling data.
@@ -19,12 +19,12 @@ There are three packages, one for XML utilities, one for XPath and one for un/ma
     - **getActivityPlace(personID)** and **getActivityDescription(personID)** create the XPath query using the personID and retrieve the result using getSingleXPathResult(xPathQuery).
     - **getActivity(personID)** create the XPath query using the personID and retrieve the result using getElementAsString(xPathQuery). It's used for task #2.
     - **getAllPeople()** uses the "/people" query and getElementAsString(xPathQuery) function to get all Person inside People. It's used for task #1.
-    - **getPersonByActivityStartdate(date, operator)** accepts a date in YYYY/MM/DD String form and a numerical operator, than it creates the query. Since XPath 1.0 doesn't have a date comparator, the input date and the date in xml are treated as string, all non numerical character are removed using XPath function [translate()] and than they are compared as number. This is possible assuming a correct input date and exploiting the fact that XMLGregorianCalendar structure orders the digits in a proper order and all zeros are not trimmed.
+    - **getPersonByActivityStartdate(date, operator)** accepts a date in YYYY/MM/DD String form and a numerical operator, than it creates the query. Since XPath 1.0 doesn't have a date comparator, the input date and the date in xml are treated as string, all non numerical character are removed using XPath function [translate()] and then they are compared as number. This is possible assuming a correct input date and exploiting the fact that XMLGregorianCalendar structure orders the digits in a proper order and all zeros are not trimmed. The created query is passed to getElementListAsString() and the result returned as String. It's used for task #3.
 - **XMLhandling** from **handlingXMLandJSON** has a field, an auxiliary private function and two public functions:
     - the integer personToGenerate set how many Person entities has a People entity.
     - generatePersonList() generates <personToGenerate> Person entities with a personal ActivityPreference, all filled with fake data. Return the list of person saved in a People entity.
     - **generatePeopleXML(filename)** uses a JAXB marshaller (using the generated package as context) to save the data given by generatePersonList() in a new XML file named <filename>. It's used for task #4.
-    - **extractPeopleXML(filename)** uses a JAXB unmarshaller (using the generated package as context) to extract data from a given XML file named <filename>. The result are return as a People entity. It's used for task #5 (it's called in JSONhandling main function)
+    - **extractPeopleXML(filename)** uses a JAXB unmarshaller (using the generated package as context) to extract data from a given XML file named <filename>. The result are return as a People entity. It's used for task #5 (it's called in JSONhandling main function).
 - **JSONhandling** from **handlingXMLandJSON** has a single public function named **generateJSON(People p, filename)** which takes a People entity, uses a Jackson mapper to extract the data as a JSON string and than saves the JSON in a new file called <filename>. It's used for task #6.
 
 
@@ -43,7 +43,6 @@ $ ant execute.evaluation
 ```
 #
 If you want to try only some features, every class with main has its own command. Every command will also compile the code and download the dependencies if needed. All the results are printed in the standard output.
-#
 ```sh
 $ ant execute.XPathQueries
 $ ant execute.XMLhandling
@@ -56,7 +55,7 @@ Every targets call the main() of the corrisponding class. The main of XPathQueri
 ```sh
 $ ant doc
 ```
-  - The target ant.clean deletes the build folder and the two file generated, in order to have a fresh start for executinf single class targets. This doesn't clean the doc folder, as the Javadoc generation of ant.doc overrides all previous Javadoc for the same classes. This mean that if a class is deleted, its Javadoc must be deleted by hand.
+  - The target ant.clean deletes the build folder and the two files generated, in order to have a fresh start for executing single class targets. This doesn't clean the doc folder, as the Javadoc generation of ant.doc overrides all previous Javadoc for the same classes. This mean that if a class is deleted, its Javadoc remains and it must be deleted by hand.
 
 [//]: # (Even if is not specifically requested by the site, thanks to dillinger.io for its md editor)
 
