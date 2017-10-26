@@ -1,0 +1,9 @@
+/bin
+/build
+/ivy
+/lib
+/src/it/gabry147/people
+.classpath
+.project
+TheSameThreePeople.json
+ThreeNewPeople.xml
